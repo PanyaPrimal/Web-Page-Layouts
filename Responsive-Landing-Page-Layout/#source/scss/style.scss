@@ -1,0 +1,36 @@
+@import "mixins.scss";
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+
+
+$fontfamily:"Lato";
+
+$minwidth:320px;
+
+@import "null.scss";
+
+body {
+
+}
+
+.wrapper{
+    overflow: hidden;
+    min-height: 100%;
+}
+
+.container{
+    max-width: 1130px;
+    padding: 0px 15px ;
+}
+
+@import "ui.scss";
+@import "header.scss";
+@import "footer.scss";
+.page {
+    
+}
+.main-screen {
+
+		&__bg {
+		}
+}
