@@ -4,7 +4,6 @@ let ready = (callback) => {
 	else document.addEventListener("DOMContentLoaded", callback);
 }
 
-
 ready(() => {
 
 	//MENU
