@@ -35,6 +35,7 @@ p {
 
     background: #000 url("../img/bg.jpg") center no-repeat;
     background-size: cover;
+    z-index: 0;
 }
 
 .header {
@@ -139,10 +140,12 @@ p {
     transform: rotate(180deg) scale(1.3);
     top: 134px;
     right: 30%;
+    z-index: -1;
 }
 .author:hover {
     position: absolute;
     transform: rotate(0deg) scale(1.3);
     right: 20%;
     transition: .2s linear;
+    z-index: -1;
 }
