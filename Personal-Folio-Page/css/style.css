@@ -31,6 +31,7 @@ p {
 .page {
     width: 100%;
     height: 100vh;
+    position: relative;
 
     background: #000 url("../img/bg.jpg") center no-repeat;
     background-size: cover;
@@ -133,3 +134,15 @@ p {
     background-color: #1461cb;
 }
 
+.author {
+    position: absolute;
+    transform: rotate(180deg) scale(1.3);
+    top: 134px;
+    right: 30%;
+}
+.author:hover {
+    position: absolute;
+    transform: rotate(0deg) scale(1.3);
+    right: 20%;
+    transition: .2s linear;
+}
