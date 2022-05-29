@@ -25,8 +25,9 @@ p {
 }
 .container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1030px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 .page {
     width: 100%;
@@ -36,6 +37,7 @@ p {
     background: #000 url("../img/bg.jpg") center no-repeat;
     background-size: cover;
     z-index: 0;
+    overflow: hidden;
 }
 
 .header {
@@ -86,7 +88,9 @@ p {
     bottom: -5px;
 }
 .content {
-    width: 565px;
+    max-width: 565px;
+    height: 100%;
+    width: 100%;
 }
 .content-header {
     margin-bottom: 35px;
@@ -146,24 +150,18 @@ p {
 
 .author {
     position: absolute;
-
-    right: 20px;
+    height: 1000px;
+    right: -200px;
     bottom: 0;
-
     z-index: -1;
 }
 
-
-
 .footer {
     width: 100%;
-
     position: absolute;
     bottom: 45px;
     left: 0;
 }
-
-
 
 .contacts {
     display: flex;
@@ -236,4 +234,61 @@ p {
 .input::placeholder,
 .textarea::placeholder {
     color: #fff;
+}
+@media (max-width: 1441px) {
+    .author {
+        height: 900px;
+        right: -400px;
+    }
+}
+@media (max-width: 1281px) {
+    .author {
+        height: 700px;
+        right: -300px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .author {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    
+    .header-logo {
+        display: none;
+    }
+
+    .header-brand {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 565px) {
+    .content {
+        text-align: center;
+    }
+    .contacts-link:last-child:after {
+        display: none;
+    }
+    .header-inner {
+        flex-direction: column;
+    }
+    .header-brand {
+        margin-bottom: 1rem;
+    }
+    .contacts {
+        flex-direction: column;
+    }
+    .contacts-link {
+        margin-right: 0;
+        margin-bottom: .5rem;
+    }
+    .contacts-link:last-child {
+        margin-bottom: 0;
+    }
+    .page {
+        height: auto;
+    }
 }
