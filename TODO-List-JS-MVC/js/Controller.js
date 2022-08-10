@@ -16,13 +16,25 @@ export class Controller {
         this.taskCollection.addToList(task);
     }
 
-    removeTask(id) {
+    toggleIsDone(id) {
+        const task = this.taskCollection.read(id);
+        task.setIsDone(!task.getIsDone());
+    }
 
-        console.log(id);
+    removeTask(id) {
         this.taskCollection.remove(id);
     }
 
-    editTask() {
-        //todo
+    toggleEditMode(id) {
+        const task = this.taskCollection.read(id);
+        task.setIsEditMode(!task.getIsEditMode());
+    }
+
+    updateTask(id, title) {
+        const task = this.taskCollection.read(id);
+        task.setTitle(title);
+    }
+    read(id) {
+        return this.taskCollection.read(id);
     }
 }

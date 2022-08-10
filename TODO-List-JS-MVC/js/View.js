@@ -19,8 +19,8 @@ export class View {
         const checkbox = todoItem.querySelector('.checkbox');
         const editButton = todoItem.querySelector('button.edit');
         const deleteButton = todoItem.querySelector('button.delete');
-        checkbox.addEventListener('change', this.toggleTodoItem);
-        //editButton.addEventListener('click', this.editTodoItem);
+        checkbox.addEventListener('change', () => this.toggleTodoItem(deleteButton.getAttribute('data-id')));
+        editButton.addEventListener('click', (event) => this.editTodoItem(deleteButton.getAttribute('data-id'), event));
         deleteButton.addEventListener('click', () => this.deleteTodoItem(deleteButton.getAttribute('data-id')));
     }
 
@@ -34,16 +34,28 @@ export class View {
         this.addInput.value = '';
     }
 
-    toggleTodoItem() {
-        const listItem = this.parentNode;
-        listItem.classList.toggle('completed');
-    }
-
-    deleteTodoItem(id) {
-        this.controller.removeTask(id); 
+    toggleTodoItem(id) {
+        this.controller.toggleIsDone(id);
 
         this.generateHtml();
     }
+
+    editTodoItem(id, event) {
+        const task = this.controller.read(id);
+        if(task.getIsEditMode()) {
+            this.controller.updateTask(id, event.srcElement.parentNode.querySelector('.textfield').value)
+        }
+
+        this.controller.toggleEditMode(id);
+
+        this.generateHtml();    
+    }
+
+    deleteTodoItem(id, editedTask) {
+        this.controller.removeTask(id, editedTask);     
+
+        this.generateHtml();        
+    }       
 
     generateHtml() {
     	this.todoList.innerHTML = '';
@@ -60,8 +72,16 @@ export class View {
         const editButton = this.createElement('button', { className: 'edit' }, 'Изменить' );
         const deleteButton = this.createElement('button', { className: 'delete' }, 'Удалить' );
         deleteButton.setAttribute('data-id', task.getId());
-        const listItem = this.createElement('li', { className: 'todo-item' + (task.getIsDone() ? ' completed' : '') }, checkbox, label, editInput, editButton, deleteButton);
-        // if editmode true ... form
+        editButton.setAttribute('data-isEditing', task.getIsEditMode());
+        const listItem = this.createElement(
+            'li', 
+            { className: 'todo-item' + (task.getIsDone() ? ' completed' : '') + (task.getIsEditMode() ? ' editing' : '') }, 
+            checkbox, 
+            label, 
+            editInput, 
+            editButton, 
+            deleteButton
+        );
 
         this.bindEvents(listItem);
 

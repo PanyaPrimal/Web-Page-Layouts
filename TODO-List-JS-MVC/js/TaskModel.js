@@ -31,4 +31,12 @@ export class TaskModel {
     getId() {
         return this.id;
     }
+
+    getIsEditMode() {
+        return this.isEditMode;
+    }
+
+    setIsEditMode(value) {
+        this.isEditMode = value;
+    }
 }
