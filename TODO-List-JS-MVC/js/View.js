@@ -21,7 +21,7 @@ export class View {
         const deleteButton = todoItem.querySelector('button.delete');
         //checkbox.addEventListener('change', this.toggleTodoItem);
         //editButton.addEventListener('click', this.editTodoItem);
-        deleteButton.addEventListener('click', this.deleteTodoItem.bind(this));
+        deleteButton.addEventListener('click', () => this.deleteTodoItem(deleteButton.getAttribute('data-id')));
     }
 
     addTodoItem(event) {
@@ -39,9 +39,8 @@ export class View {
         listItem.classList.toggle('completed');
     }
 
-    deleteTodoItem(event) {
-        
-        this.controller.removeTask(event.srcElement.getAttribute('data-id')); //todo передавать id 
+    deleteTodoItem(id) {
+        this.controller.removeTask(id); 
 
         this.generateHtml();
     }
@@ -59,10 +58,10 @@ export class View {
         const label = this.createElement('label', { className: 'title' }, task.getTitle());
         const editInput = this.createElement('input', { type: 'text', className: 'textfield' });
         const editButton = this.createElement('button', { className: 'edit' }, 'Изменить' );
-        const deleteButton = this.createElement('button', { className: 'delete' }, 'Удалить' ); //todo set data attribute task.getId()
+        const deleteButton = this.createElement('button', { className: 'delete' }, 'Удалить' );
         deleteButton.setAttribute('data-id', task.getId());
         const listItem = this.createElement('li', { className: 'todo-item' + (task.getIsDone() ? ' completed' : '') }, checkbox, label, editInput, editButton, deleteButton);
-        
+        // if editmode true ... form
 
         this.bindEvents(listItem);
 

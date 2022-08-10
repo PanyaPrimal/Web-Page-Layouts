@@ -3,6 +3,7 @@ export class TaskModel {
 		this.title = null;
 		this.isDone = false;
         this.id = this.generateId();
+        this.isEditMode = false;
 	}
 
 	getTitle() {
