@@ -13,12 +13,13 @@ export class Controller {
     addNewTask(title) {
         const task = new TaskModel();
         task.setTitle(title);
-
         this.taskCollection.addToList(task);
     }
 
-    removeTask() {
-        //todo
+    removeTask(id) {
+
+        console.log(id);
+        this.taskCollection.remove(id);
     }
 
     editTask() {
