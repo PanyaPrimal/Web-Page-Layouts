@@ -19,7 +19,7 @@ export class View {
         const checkbox = todoItem.querySelector('.checkbox');
         const editButton = todoItem.querySelector('button.edit');
         const deleteButton = todoItem.querySelector('button.delete');
-        //checkbox.addEventListener('change', this.toggleTodoItem);
+        checkbox.addEventListener('change', this.toggleTodoItem);
         //editButton.addEventListener('click', this.editTodoItem);
         deleteButton.addEventListener('click', () => this.deleteTodoItem(deleteButton.getAttribute('data-id')));
     }
