@@ -12,8 +12,8 @@ window.onload = function() {
     programs(getData);
 
     //init Cost input
-    costInput(getData);
-    costRange(getData);
+    const cleaveCost = costInput(getData);
+    const sliderCost = costRange(getData);
 
     document.addEventListener('updateForm', (e) => {
         Model.setData(e.detail);
@@ -21,10 +21,28 @@ window.onload = function() {
         const data = Model.getData();
         const results = Model.getResults();
 
+        // Update all form view based on model
+        updateFormAndSliders(data);
+
 
         //Update results block
         updateResultsView(results);
 
 
     })
+
+    function updateFormAndSliders(data) {
+
+        //costInput
+        if(data.onUpdate !== 'inputCost') {
+            console.log('update input cost!', setRawValue);
+            cleaveCost.setRawValue(data.cost);
+        }
+
+        //costSlider
+        if(data.onUpdate !== 'costSlider') {
+            console.log('update cost Slider!');
+            sliderCost.noUiSlider.set(data.cost);
+        }
+    }
 }
