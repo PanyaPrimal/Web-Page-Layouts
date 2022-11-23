@@ -3,48 +3,49 @@ let data = {
     cost: 12000000,
     minPrice: 375000,
     maxPrice: 100000000,
-    programs: {
-        base: 0.1,
-        it: 0.047,
-        gov: 0.067,
-        zero: 0.12,
-    },
+	programs: {
+		base: 0.1,
+		it: 0.047,
+		gov: 0.067,
+		zero: 0.12,
+	},
 };
 
 let results = {
-    rate: data.selectedProgram
+	rate: data.selectedProgram
 };
 
 function getData() {
     return {...data}
 }
+
 function getResults() {
-    return {...results}
+    return { ...results };
 }
 
 function setData(newData) {
-    console.log('new data', newData);
+    console.log('New data', newData);
 
     if (newData.onUpdate === 'inputCost') {
-        //refresh price
-        //if cost < min price
-        if (newData.cost < data.minPrice) newData.cost = data.minPrice;
+		// Обновление цены
+		// Если стоимость меньше мин цены
+		if (newData.cost < data.minPrice) newData.cost = data.minPrice;
 
-        //if cost > max price
-        if (newData.cost > data.minPrice) newData.cost = data.maxPrice;
-    }
-    
+		// Если стоимость больше макс цены
+		if (newData.cost > data.maxPrice) newData.cost = data.maxPrice;
+	}
+
     data = {
-        ...data, 
-        ...newData
-    }
+        ...data,
+        ...newData,
+    };
 
     results = {
-        rate: data.selectedProgram
-    }
+		rate: data.selectedProgram
+	};
 
-    console.log('updated data', data);
-    console.log('new results', results);
+    console.log('Updated data', data);
+    console.log('New resulst', results);
 }
 
-export {getData, setData, getResults}
+export { getData, setData, getResults };
