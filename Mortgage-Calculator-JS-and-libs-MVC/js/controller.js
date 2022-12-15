@@ -38,7 +38,15 @@ window.onload = function () {
     function updateFormAndSliders(data) {
         // Update radio btns
         if (data.onUpdate === 'radioProgram') {
-            updateMinPercents(data)
+            updateMinPercents(data);
+
+            //update payment slider 
+            sliderPayment.noUiSlider.updateOptions({
+                range: {
+                    min: data.minPaymentPercents * 100,
+                    max: data.maxPaymentPercents * 100,
+                },
+            });
         }
 
         // costInput
