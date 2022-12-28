@@ -13,6 +13,9 @@ let data = {
     getMaxPayment:  function(){
         return this.cost * this.maxPaymentPercents;
     },
+    minYear: 1,
+    maxYear: 30,
+    time: 10,
 	programs: {
 		base: 0.1,
 		it: 0.047,
@@ -63,10 +66,29 @@ function setData(newData) {
         }
 	}
 
+    if (newData.onUpdate === 'inputPayment') {
+
+        // Пересчет %
+        newData.paymentPercents = (newData.payment * 100) / data.cost / 100;
+
+        // Если проценты больше 90%
+        if (newData.paymentPercents > data.maxPaymentPercents) {
+            newData.paymentPercents = data.maxPaymentPercents;
+            newData.payment = data.cost * data.maxPaymentPercents;
+        }
+        // Если проценты менее минимальной
+        if (newData.paymentPercents < data.minPaymentPercents) {
+            newData.paymentPercents = data.minPaymentPercents;
+            newData.payment = data.cost * data.minPaymentPercents;
+        }
+    }
+
     if (newData.onUpdate === 'paymentSlider') {
         newData.paymentPercents = newData.paymentPercents / 100;
         data.payment = data.cost * newData.paymentPercents;
     }
+
+    
 
     data = {
         ...data,
