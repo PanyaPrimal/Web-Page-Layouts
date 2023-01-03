@@ -37,7 +37,6 @@ function getResults() {
 }
 
 function setData(newData) {
-    console.log('New data', newData);
 
     if (newData.onUpdate === 'radioProgram') {
         if (newData.id === "zero-value") {
@@ -103,12 +102,21 @@ function setData(newData) {
         ...newData,
     };
 
+    // Расчет ипотеки
+    const months = data.time * 12;
+    const totalAmount = data.cost - data.payment;
+    const monthRate = data.selectedProgram / 12;
+    const generalRate = (1 + monthRate) ** months;
+    const monthPayment = (totalAmount * monthRate * generalRate) / (generalRate - 1);
+    const overPayment = monthPayment * months - totalAmount;
+
     results = {
-		rate: data.selectedProgram
+		rate: data.selectedProgram,
+        totalAmount,
+        monthPayment,
+        overPayment
 	};
 
-    console.log('Updated data', data);
-    console.log('New resulst', results);
 }
 
 export { getData, setData, getResults };
