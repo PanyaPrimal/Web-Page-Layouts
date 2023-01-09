@@ -90,4 +90,95 @@ window.onload = function () {
             sliderTime.noUiSlider.set(data.time);
         }
     }
+    
+    // Order Form
+    const openFormBtn = document.querySelector('#openFormBtn')
+    const orderForm = document.querySelector('#orderForm')
+    const submitFormBtn = document.querySelector('#submitFormBtn');
+
+    openFormBtn.addEventListener('click', function() {
+        orderForm.classList.remove('none');
+        openFormBtn.classList.add('none');
+    })
+
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Собираем данные с форм
+        const formData = new FormData(orderForm);
+        console.log(FormData);
+        console.log(formData.get('name'));
+        console.log(formData.get('email'));
+        console.log(formData.get('phone'));
+
+        //disable для кнопки и инпутов
+        submitFormBtn.setAttribute('disabled', true);
+        submitFormBtn.innerText = 'Заявка отправляется..';
+
+        orderForm.querySelectorAll('input').forEach(function (input) {
+            input.setAttribute('disabled', true);
+        })
+
+        fetchData();
+
+        async function fetchData() {
+            const data = Model.getData()
+            const results = Model.getResults()
+
+            let url = checkOnUrl(document.location.href);
+
+            function checkOnUrl(url) {
+                let urlArrayDot = url.split('.');
+
+                if (urlArrayDot[urlArrayDot.length - 1] === 'html') {
+                    urlArrayDot.pop();
+                    let newUrl = urlArrayDot.join('.');
+                    let urlArraySlash = newUrl.split('/');
+                    urlArraySlash.pop();
+                    newUrl = urlArraySlash.join('/') + '/';
+                    return newUrl;
+                }
+
+                return url;
+            }
+
+            const response = await fetch(url + 'mail.php', {
+                method: 'POST',
+                header: {
+                    'Content-Type': 'application/json;charset=utf-8,'
+                },
+                body: JSON.stringify({
+                    form: {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                    },
+                    data, 
+                    results
+                })
+            });
+
+            const result = await response.text();
+            console.log(result);
+
+            submitFormBtn.removeAttribute('disabled', true);
+            submitFormBtn.innerText = 'Оформить заявку';
+
+            orderForm.querySelectorAll('input').forEach((input) => {
+                input.removeAttribute('disabled', true);
+            });
+
+            // Очистить поля формы.
+            orderForm.reset();
+            orderForm.classList.add('none');
+
+            // Показать ответ от сервера сообщением
+            if (result === 'SUCCESS') {
+                document.getElementById('success').classList.remove('none');
+            } else {
+                document.getElementById('error').classList.remove('none');
+            }
+        }
+    })
+
 }
