@@ -63,6 +63,8 @@ function setData(newData) {
         if(data.payment < data.getMinPayment()) {
             data.payment = data.getMinPayment();
         }
+
+        data.paymentPercents = ( data.payment * 100) / newData.cost / 100;
 	}
 
     if (newData.onUpdate === 'inputPayment') {
